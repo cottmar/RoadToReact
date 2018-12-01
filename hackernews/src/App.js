@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 
-
 const list  = [
   {
     title: 'React',
@@ -21,10 +20,9 @@ const list  = [
   },
 ]
 
-// takes the search term and returns another function. The filter function takes a function as its input. 
 function isSearched(searchTerm) {
-  return function(items) {
-    return items.title.toLowerCase().includes(searchTerm.toLowerCase());
+  return function(item) {
+    
   }
 }
 
@@ -55,83 +53,39 @@ class App extends Component {
   }
 
   render() {
-    const { searchTerm, list } = this.state;
     return (
       <div className="App">
-        <Search
-          value={searchTerm}
-          onChange={this.onSearchChange}
-        >
-          Search
-        </Search>
-        <Table
-          list={list}
-          pattern={searchTerm}
-          onDismiss={this.onDismiss}
-        />
-      </div>
-    );
-  }
-}
-
-class Search extends Component {
-  render() {
-    const { value, onChange, children } = this.props;
-    return (
-      <form>
-        {children} <input
-          type="text"
-          value={value}
-          onChange={onChange}
-        />
-      </form>
-    );
-  }
-}
-
-class Table extends Component {
-  render() {
-    const { list, pattern, onDismiss } = this.props;
-    return (
-      <div>
-        {list.filter(isSearched(pattern)).map(item => 
-          <div key={item.objectId}>
-            <span>
-              <a href={item.url}>{item.title}</a>
-            </span>
-            <span>{item.author}</span>
-            <span>{item.num_comments}</span>
-            <span>{item.points}</span>
-            <span>
-              <Button onClick={() => onDismiss(item.objectId)}>
+        <form>
+          <input
+           type="text"
+           onChange={this.onSearchChange}
+           />
+        </form>
+      {/* Concise Body that has an implicit return attached, no return statement is needed */}
+      {this.state.list.filter(...).map(item => {
+        return (
+          //this helpsReact to identify added, changed, or removed items when the list changes.
+          <div key={item.objectId}> 
+          <span>
+            <a href={item.url}> {item.title}</a>
+          </span>
+          <span>{item.author}</span>
+          <span>{item.num_comments}</span>
+          <span>{item.points}</span>
+          <span>
+              <button
+              // the following line you have to pass in item.objectid so the item can be identified 
+                onClick={() => this.onDismiss(item.objectId)}
+                type="button"
+              >
                 Dismiss
-              </Button>
-            </span>
+              </button>
+          </span>
           </div>
-        )}
+          );
+        })}
       </div>
-    )
-  }
-}
-
-class Button extends Component {
-  render() {
-    const {
-      onClick,
-      className,
-      children,
-    } = this.props;
-
-    return (
-      <button   
-        onClick = {onClick}
-        className = {className}
-        type="button"
-      >
-        {children}
-      </button>
-    )
-
+    );
   }
 }
 
