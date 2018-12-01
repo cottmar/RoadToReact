@@ -31,3 +31,7 @@ You trigger an action in your view with onClick(), a function, or class method m
 
 Class methods don't automatically bind 'this' to the class instance. 
 
+## Higher Order Functions
+
+
+
