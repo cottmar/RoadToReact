@@ -31,7 +31,16 @@ You trigger an action in your view with onClick(), a function, or class method m
 
 Class methods don't automatically bind 'this' to the class instance. 
 
-## Higher Order Functions
+## React Basics
+
+- Use this.state and setState() to manage internal component state
+- Pass functions or class methods to your element handler
+- Use forms and events in React to add interactions
+- Unidirectional data flow is an important concept in React
+- Embrace controlled components
+- Compose Components with children and reusable components 
+- usage and implementation of ES6 class components and functional stateless components
+- Approaches to style the components
 
 
 
