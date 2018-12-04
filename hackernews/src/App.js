@@ -57,13 +57,15 @@ class App extends Component {
   render() {
     const { searchTerm, list } = this.state;
     return (
-      <div className="App">
+      <div className="page">
+        <div className="interactions">
         <Search
           value={searchTerm}
           onChange={this.onSearchChange}
         >
           Search
         </Search>
+        </div>
         <Table
           list={list}
           pattern={searchTerm}
@@ -74,10 +76,9 @@ class App extends Component {
   }
 }
 
-class Search extends Component {
-  render() {
-    const { value, onChange, children } = this.props;
-    return (
+const Search = ({ value, onChange, children }) => {
+      // eslint-disable-next-line no-unused-expressions
+      return (
       <form>
         {children} <input
           type="text"
@@ -85,17 +86,15 @@ class Search extends Component {
           onChange={onChange}
         />
       </form>
-    );
+      );
   }
-}
 
-class Table extends Component {
-  render() {
-    const { list, pattern, onDismiss } = this.props;
-    return (
-      <div>
+
+const Table = ({ list, pattern, onDismiss }) => {
+  return (
+      <div className="table">
         {list.filter(isSearched(pattern)).map(item => 
-          <div key={item.objectId}>
+          <div key={item.objectId} className="table-row">
             <span>
               <a href={item.url}>{item.title}</a>
             </span>
@@ -103,24 +102,24 @@ class Table extends Component {
             <span>{item.num_comments}</span>
             <span>{item.points}</span>
             <span>
-              <Button onClick={() => onDismiss(item.objectId)}>
+              <Button onClick={() => onDismiss(item.objectId)}
+              className="button-inline"
+              >
                 Dismiss
               </Button>
             </span>
           </div>
         )}
       </div>
-    )
+    );
   }
-}
 
-class Button extends Component {
-  render() {
+const Button = (props) => {
     const {
       onClick,
-      className,
+      className= '',
       children,
-    } = this.props;
+    } = props;
 
     return (
       <button   
@@ -131,8 +130,7 @@ class Button extends Component {
         {children}
       </button>
     )
-
   }
-}
+
 
 export default App;
