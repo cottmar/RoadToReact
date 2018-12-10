@@ -29,10 +29,10 @@ console.log(url);
 //   },
 // ]
 
-// takes the search term and returns another function. The filter function takes a function as its input. 
+
 function isSearched(searchTerm) {
-  return function(items) {
-    return items.title.toLowerCase().includes(searchTerm.toLowerCase());
+  return function(item) {
+    
   }
 }
 
@@ -77,8 +77,30 @@ class App extends Component {
   }
 
   render() {
-    const { searchTerm, list } = this.state;
     return (
+      <div className="App">
+        <form>
+          <input
+           type="text"
+           onChange={this.onSearchChange}
+           />
+        </form>
+      {/* Concise Body that has an implicit return attached, no return statement is needed */}
+      {this.state.list.filter(...).map(item => {
+        return (
+          //this helpsReact to identify added, changed, or removed items when the list changes.
+          <div key={item.objectId}> 
+          <span>
+            <a href={item.url}> {item.title}</a>
+          </span>
+          <span>{item.author}</span>
+          <span>{item.num_comments}</span>
+          <span>{item.points}</span>
+          <span>
+              <button
+              // the following line you have to pass in item.objectid so the item can be identified 
+                onClick={() => this.onDismiss(item.objectId)}
+                type="button"
       <div className="page">
         <div className="interactions">
         <Search
@@ -128,10 +150,11 @@ const Table = ({ list, pattern, onDismiss }) => {
               className="button-inline"
               >
                 Dismiss
-              </Button>
-            </span>
+              </button>
+          </span>
           </div>
-        )}
+          );
+        })}
       </div>
     );
   }
